@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1" rowspan="3">
+       <layout class="QFormLayout" name="formLayout_3">
+        <item row="1" column="0">
+         <widget class="QLabel" name="sceduling">
+          <property name="text">
+           <string>Scheduling</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="schedule_sel">
+          <item>
+           <property name="text">
+            <string>FCFS (First-Come-First-Service)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>RR (Round-Robin)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SPN (Shortest-Process-Next)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SRTN (Shortest Remaining Time Next)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HRRN (High-Response-Ratio-Next)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="time">
+          <property name="text">
+           <string>Time</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="time_sel"/>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QTableWidget" name="process_list">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>5</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Arival Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Burst Time</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="add">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="del">
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QPushButton" name="start">
+          <property name="text">
+           <string>Simulation Start</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Speed</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gantt">
+        <item row="1" column="0">
+         <widget class="QTableWidget" name="tableWidget">
+          <row>
+           <property name="text">
+            <string>FCFS</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>RR</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>SPN</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>STRN</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>HRRN</string>
+           </property>
+          </row>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="name">
+          <property name="text">
+           <string>Gantt Chart</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>FCFS</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="FCFS_table">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Process Name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Arrival Time</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Burst Time (BT)</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Waiting Time (WT)</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Turnaround Time(TT)</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Normalized TT(NTTT)</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>RR</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="RR_table"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>SPN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="tableWidget_2"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>SRTN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="tableWidget_3"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>HRRN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="tableWidget_4"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QChartView" name="queue"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
