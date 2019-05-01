@@ -29,6 +29,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     colorgenerator.cpp \
+    processtable.cpp \
     queuechart.cpp \
     ganttchart.cpp \
     scheduler.cpp
@@ -36,6 +37,7 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     colorgenerator.h \
+    processtable.h \
     queuechart.h \
     ganttchart.h \
     process.h \

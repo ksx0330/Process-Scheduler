@@ -9,81 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    qc = new QueueChart(ui->queue, "Queue / Heap");
+    //qc = new QueueChart(ui->queue, "Queue / Heap");
     gc = new GanttChart(ui->tableWidget);
 
     QHeaderView * hv = ui->process_list->horizontalHeader();
     hv->setSectionResizeMode(QHeaderView::Stretch);
 
-    /*
-    QVector<Process> v;
-    srand(static_cast<unsigned int>(time(nullptr)));
-    for (int i = 0; i < 5; i++)
-        v.push_back(Process("P" + QString::number(i + 1), color.getColor(i), 5 - i, std::rand() % 10 + 1));
-
-    std::sort(v.begin(), v.end());
-
-    for (auto p : v) {
-        g->addItem(0, p.burstTime, p.name, p.color);
-        q->push(p);
-    }
-
-    QVector<Process> v2;
-    v2.push_back(Process("P1", color.getColor(0), 0, 3));
-    v2.push_back(Process("P2", color.getColor(1), 1, 7));
-    v2.push_back(Process("P3", color.getColor(2), 3, 2));
-    v2.push_back(Process("P4", color.getColor(2), 5, 5));
-    v2.push_back(Process("P5", color.getColor(2), 6, 3));
-
-
-    Scheduler s(v2, gc, qc);
-    auto result = s.FCFS();
-
-    for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
-    }
-
-    std::cout << "\n\n";
-    result = s.RR(3);
-
-    for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
-    }
-
-    std::cout << "\n\n";
-    result = s.SPN();
-
-    for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
-    }
-
-    std::cout << "\n\n";
-    result = s.SRTN();
-
-    for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
-    }
-
-    std::cout << "\n\n";
-    result = s.HRRN();
-
-    for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
-    }
-    */
-
     initConnect();
-
 }
 
 MainWindow::~MainWindow()
@@ -92,38 +24,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::initConnect() {
-    connect(ui->add, &QPushButton::clicked, this, &MainWindow::addTableRow);
-    connect(ui->del, &QPushButton::clicked, this, &MainWindow::delTableRow);
-    //connect(s, &Scheduler::ganttPushed, this, &MainWindow::addGantt);
-    connect(ui->start, &QPushButton::clicked, this, &MainWindow::getProcessList);
+    connect(ui->add, &QPushButton::clicked, ui->process_list, &ProcessTable::addTableRow);
+    connect(ui->del, &QPushButton::clicked, ui->process_list, &ProcessTable::delTableRow);
+    connect(ui->start, &QPushButton::clicked, this, &MainWindow::printProcess);
+    connect(ui->fullStart, &QPushButton::clicked, this, &MainWindow::printFullProcess);
 }
 
-void MainWindow::addTableRow() {
-    ui->process_list->setRowCount(ui->process_list->rowCount() + 1);
-}
-
-void MainWindow::delTableRow() {
-    auto tmp = ui->process_list->currentRow();
-    ui->process_list->removeRow(tmp);
-}
-
-void MainWindow::getProcessList() {
-    int row = ui->process_list->rowCount();
-    processList.clear();
-    color.clear();
-    for (int i = 0; i < row; i++) {
-        if (ui->process_list->item(i, 0) != nullptr && ui->process_list->item(i, 1) != nullptr && ui->process_list->item(i, 2) != nullptr) {
-            processList.push_back(Process(ui->process_list->item(i, 0)->text(), color.getColor(i),
-                    ui->process_list->item(i, 1)->text().toInt(), ui->process_list->item(i, 2)->text().toInt()));
-        }
-    }
-    std::sort(processList.begin(), processList.end());
-    for (int i = 0; i < processList.length(); i++)
-        std::cout << processList[i].toString() << std::endl;
-
-    int sel = ui->schedule_sel->currentIndex();
-    int timeQuantum = ui->time_sel->text().toInt();
-    Scheduler s(processList, gc, qc);
+QVector<Process> MainWindow::getScheduledProcessList(int sel, int timeQuantum) {
+    Scheduler s(processList, gc);
     QVector<Process> result;
 
     switch (sel) {
@@ -146,12 +54,88 @@ void MainWindow::getProcessList() {
     case 4:
         result = s.HRRN();
         break;
+
+    case 5:
+        result = s.MyScheduler(timeQuantum);
+        break;
     }
 
+    return result;
+}
+
+void MainWindow::printResult(QVector<Process> result, int sel) {
+    QTableWidget * tmp = nullptr;
+    QLabel * label = nullptr;
+
+    switch(sel) {
+    case 0:
+        tmp = ui->FCFS_table;
+        label = ui->FCFS_ART;
+        break;
+
+    case 1:
+        tmp = ui->RR_table;
+        label = ui->RR_ART;
+        break;
+
+    case 2:
+        tmp = ui->SPN_table;
+        label = ui->SPN_ART;
+        break;
+
+    case 3:
+        tmp = ui->SRTN_table;
+        label = ui->SRTN_ART;
+        break;
+
+    case 4:
+        tmp = ui->HRRN_table;
+        label = ui->HRRN_ART;
+        break;
+
+    case 5:
+        tmp = ui->NEW_table;
+        label = ui->NEW_ART;
+        break;
+
+    }
+    tmp->setRowCount(0);
+
+    double sum = 0;
     for (auto item : result) {
-        std::cout << item.name.toUtf8().constData() << ": "
-                  << item.arrivalTime << " " << item.burstTime
-                  << " " << item.waitingTime << " " << item.turnaroundTime << std::endl;
+        tmp->setRowCount(tmp->rowCount() + 1);
+        tmp->setItem(tmp->rowCount() - 1, 0, new QTableWidgetItem(item.name));
+        tmp->setItem(tmp->rowCount() - 1, 1, new QTableWidgetItem(QString::number(item.arrivalTime)));
+        tmp->setItem(tmp->rowCount() - 1, 2, new QTableWidgetItem(QString::number(item.burstTime)));
+        tmp->setItem(tmp->rowCount() - 1, 3, new QTableWidgetItem(QString::number(item.waitingTime)));
+        tmp->setItem(tmp->rowCount() - 1, 4, new QTableWidgetItem(QString::number(item.turnaroundTime)));
+        tmp->setItem(tmp->rowCount() - 1, 5, new QTableWidgetItem(QString::number(static_cast<double>(item.turnaroundTime) / item.burstTime)));
+
+        sum += item.turnaroundTime;
+    }
+
+    label->setText(QString::number(sum / result.length()));
+}
+
+void MainWindow::printProcess() {
+    int sel = ui->schedule_sel->currentIndex();
+    int timeQuantum = ui->time_sel->text().toInt();
+    if (timeQuantum == 0) timeQuantum = 1;
+
+    processList = ui->process_list->getProcessList();
+    QVector<Process> result = getScheduledProcessList(sel, timeQuantum);
+    printResult(result, sel);
+    ui->resultTable->setCurrentIndex(sel);
+}
+
+void MainWindow::printFullProcess() {
+    int timeQuantum = ui->time_sel->text().toInt();
+    if (timeQuantum == 0) timeQuantum = 1;
+    processList = ui->process_list->getProcessList();
+
+    for (int i = 0; i < 6; i++) {
+        QVector<Process> result = getScheduledProcessList(i, timeQuantum);
+        printResult(result, i);
     }
 
 }

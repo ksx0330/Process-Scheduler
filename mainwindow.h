@@ -7,6 +7,7 @@
 #include "ganttchart.h"
 #include "colorgenerator.h"
 #include "scheduler.h"
+#include "processtable.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,9 +17,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
     QVector<Process> processList;
-    QueueChart * qc;
     GanttChart * gc;
-    ColorGenerator color;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -27,12 +26,14 @@ public:
 private:
     Ui::MainWindow *ui;
     void initConnect();
+    QVector<Process> getScheduledProcessList(int sel, int timeQuantum);
+    void printResult(QVector<Process> result, int sel);
 
 public slots:
-    void addTableRow();
-    void delTableRow();
+    void printProcess();
+    void printFullProcess();
 
-    void getProcessList();
+
 };
 
 #endif // MAINWINDOW_H

@@ -18,10 +18,9 @@ class Scheduler
 private:
     QVector<Process> p;
     GanttChart * gc;
-    QueueChart * qc;
 
 public:
-    Scheduler(QVector<Process> _p, GanttChart * _gc, QueueChart * _qc);
+    Scheduler(QVector<Process> _p, GanttChart * _gc);
 
     QVector<Process> FCFS();
     QVector<Process> RR(int timeQuantum);
@@ -29,8 +28,10 @@ public:
     QVector<Process> SRTN();
     QVector<Process> HRRN();
 
-signals:
-    void ganttPushed(Process p);
+    QVector<Process> MyScheduler(int timeQuantum);
+
+private:
+    double oneTimeRatio(QQueue<std::pair<int, Process>> _p, int timeQuantum);
 
 };
 

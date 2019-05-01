@@ -17,7 +17,7 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1" rowspan="3">
+      <item row="0" column="1" rowspan="2">
        <layout class="QFormLayout" name="formLayout_3">
         <item row="1" column="0">
          <widget class="QLabel" name="sceduling">
@@ -53,6 +53,11 @@
             <string>HRRN (High-Response-Ratio-Next)</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>NEW(My-Scheduler)</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="2" column="0">
@@ -66,7 +71,7 @@
          <widget class="QLineEdit" name="time_sel"/>
         </item>
         <item row="3" column="0" colspan="2">
-         <widget class="QTableWidget" name="process_list">
+         <widget class="ProcessTable" name="process_list">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -152,28 +157,566 @@
         <item row="4" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QPushButton" name="fullStart">
             <property name="text">
-             <string>Speed</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+             <string>Full Scheduling Start</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
        </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTabWidget" name="resultTable">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>FCFS</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="FCFS_table">
+            <property name="textElideMode">
+             <enum>Qt::ElideLeft</enum>
+            </property>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_12">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="FCFS_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>RR</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="RR_table">
+            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="RR_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>SPN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="2" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="SPN_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="SPN_table">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>SRTN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="SRTN_table">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="SRTN_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>HRRN</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="HRRN_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="HRRN_table">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_8">
+         <attribute name="title">
+          <string>NEW</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="NEW_table">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>PN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>WT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TT</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>NTT</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece
+
+</string>
+              </property>
+              <property name="text">
+               <string>Average Response Time (TT)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="NEW_ART">
+              <property name="styleSheet">
+               <string notr="true">border: 3px solid #cecece
+
+</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </item>
       <item row="0" column="0">
        <layout class="QGridLayout" name="gantt">
@@ -204,6 +747,11 @@
             <string>HRRN</string>
            </property>
           </row>
+          <row>
+           <property name="text">
+            <string>NEW</string>
+           </property>
+          </row>
          </widget>
         </item>
         <item row="0" column="0">
@@ -217,172 +765,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="2" column="0">
-       <widget class="QTabWidget" name="tabWidget">
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="tab">
-         <attribute name="title">
-          <string>FCFS</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="FCFS_table">
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Process Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Arrival Time</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Burst Time (BT)</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Waiting Time (WT)</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Turnaround Time(TT)</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Normalized TT(NTTT)</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_2">
-         <attribute name="title">
-          <string>RR</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="RR_table"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_3">
-         <attribute name="title">
-          <string>SPN</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="tableWidget_2"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_4">
-         <attribute name="title">
-          <string>SRTN</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_7">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="tableWidget_3"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_5">
-         <attribute name="title">
-          <string>HRRN</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QTableWidget" name="tableWidget_4"/>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QChartView" name="queue"/>
       </item>
      </layout>
     </item>
@@ -427,9 +809,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>QChartView</class>
-   <extends>QGraphicsView</extends>
-   <header>QtCharts</header>
+   <class>ProcessTable</class>
+   <extends>QTableWidget</extends>
+   <header>processtable.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

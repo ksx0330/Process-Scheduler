@@ -14,6 +14,7 @@ GanttChart::GanttChart(QTableWidget * v)
 }
 
 void GanttChart::addItem(int row, int span, QString s, QColor c) {
+    if (span == 0) return;
     QTableWidgetItem * i = new QTableWidgetItem();
     i->setText(s);
     i->setTextAlignment(Qt::AlignCenter);
@@ -51,7 +52,7 @@ void GanttChart::resizeCol(int resizeCol) {
 
 void GanttChart::clearRow(int row) {
     for (int i = 0; i < widget->columnCount(); i++) {
-        if (widget->item(row, i) != 0) {
+        if (widget->item(row, i) != nullptr) {
             widget->item(row, i)->setText("");
             widget->item(row, i)->setBackgroundColor(Qt::white);
 

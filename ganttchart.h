@@ -8,7 +8,7 @@
 class GanttChart
 {
 private:
-    int row = 5, col = 10;
+    int row = 6, col = 10;
     QVector<int> backCol;
 
     QTableWidget * widget;
