@@ -216,11 +216,14 @@ QVector<Process> Scheduler::HRRN() {
     QVector<std::pair<int, Process>> v;
     std::pair<int, Process> nowP(-1, Process());
     int turn = 0, index = 0;
+    int complete = 0;
 
     int lineNum = 4;
     gc->clearRow(lineNum);
     for (; index < now.length() || nowP.second.burstTime >= 0; turn++) {
         if (nowP.first != -1 && nowP.second.burstTime == 0) {
+            complete++;
+
             Process tmp = nowP.second;
             tmp.burstTime = now[nowP.first].burstTime;
             tmp.waitingTime = turn - tmp.burstTime - tmp.arrivalTime;
@@ -233,12 +236,15 @@ QVector<Process> Scheduler::HRRN() {
 
             if (!v.empty()) {
                 v[nowP.first].second.burstTime = -1;
-                nowP = v[1];
-                for (int i = 1; i < v.length(); i++) {
-                    if (v[i].second.burstTime == -1) continue;
-                    if (static_cast<double>(turn - v[i].second.arrivalTime + v[i].second.burstTime) / v[i].second.burstTime
-                            > static_cast<double>(turn - nowP.second.arrivalTime + nowP.second.burstTime) / nowP.second.burstTime)
-                        nowP = v[i];
+
+                if (v.length() > complete) {
+                    nowP = v[1];
+                    for (int i = 2; i < v.length(); i++) {
+                        if (v[i].second.burstTime == -1) continue;
+                        if (static_cast<double>(turn - v[i].second.arrivalTime + v[i].second.burstTime) / v[i].second.burstTime
+                                > static_cast<double>(turn - nowP.second.arrivalTime + nowP.second.burstTime) / nowP.second.burstTime)
+                            nowP = v[i];
+                    }
                 }
             }
         }
@@ -254,20 +260,20 @@ QVector<Process> Scheduler::HRRN() {
             }
         }
 
-        if (nowP.first == -1) {
-            gc->addItem(lineNum, 1, "X", Qt::black);
-            continue;
-        }
-
-        if (nowP.second.burstTime <= 0 && !v.empty()) {
+        if (nowP.second.burstTime <= 0 && v.length() > complete) {
             v[nowP.first].second.burstTime = -1;
             nowP = v[1];
-            for (int i = 1; i < v.length(); i++) {
+            for (int i = 2; i < v.length(); i++) {
                 if (v[i].second.burstTime == -1) continue;
                 if (static_cast<double>(turn - v[i].second.arrivalTime + v[i].second.burstTime) / v[i].second.burstTime
                         > static_cast<double>(turn - nowP.second.arrivalTime + nowP.second.burstTime) / nowP.second.burstTime)
                     nowP = v[i];
             }
+        }
+
+        if (nowP.first == -1) {
+            gc->addItem(lineNum, 1, "X", Qt::black);
+            continue;
         }
 
         nowP.second.burstTime--;
@@ -357,6 +363,6 @@ double Scheduler::oneTimeRatio(QQueue<std::pair<int, Process>> _p, int timeQuant
     for (auto i : _p) {
         if (i.second.burstTime <= timeQuantum)
             sum += 1;
-    }
+    }c
     return sum / size;
 }
